@@ -1,0 +1,62 @@
+#!/bin/bash
+# ░░░░░░░░▄▀▀████████▀██████▄▄▄▄▄▄░░░░░░░░
+# ░░░░░░▄▀░▄▀░░▄▄▄▄▄░▀▄▄▄▄▄▄▀▀▀▄▄░▀▄░░░░░░
+# ░░░░▄▀░░▀░▄▄▀░░░░░▀█▄░░░▄▀▀▀▀▄▀▀░░█░░░░░
+# ░░░▄▀░░░░▄▀░▄███▀▀▄░▀░░█░▄▄▄▄▄░░▄▄█▄░░░░
+# ░▄▀░░▄▀▀▄░░▀▀░▄▀▀▀██░░░██▀▀▀░▀▀░▀▀▀██▄░░
+# █░░▄▀░▄▄░▀▀░▀▀░░▄░▄▄░░░░█▄░░▄▄▀▀▀█▄░██░░
+# ▀░░▀░▀▀░▀▀░░░░░▀░▀░░░░░░░▀▀▀░░░░░░░░░░░░
+# ▄▄▄▄░░▄▄▄▄░░░▄▄▄░░▄▄▄▄░░▄▄░░░▄▄▄░▄▄░░░▄▄
+# ██░██░██░██░██░██░██▄█▀░██░░░██▄░███▄███
+# ██▀▀░░██▀█▄░██░██░██░██░██░░░██▀░██▀█▀██
+# ██░░░░██░██░▀█▄█▀░████▀░████░███░██░░░██
+# ░░░░░░░░░░░░░░░░░░░▄▄▄▄░░░░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░▄███▀▀▀██▄░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░███░░░░░███░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░░░░░▄▄▄██▀░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░░░░██▀▀░░░░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░░░░██░░░░░░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░░░░▄▄░░░░░░░░░░░░░░░░░░░
+# ░░░░░░░░░░░░░░░░░░░▀▀░░░░░░░░░░░░░░░░░░░
+
+# Prepara a referencia do binario original
+executable="/usr/bin/ls --color=auto"
+
+if [[ ${EUID} == 0 ]] ; then
+  # ROOT SHALL NOT BE ZOADO EVER
+  exec $executable "$@"
+fi
+
+# === Mensagem de erro de i/o ==================================================
+io_error(){ # Mensagem de i/o Error (20 % de chance de aparecer)
+      data=$(date "+%a  %d %I:%M:%S")
+      msg="${data}  kernel: end_request: I/O error, dev sda, sector ${RANDOM}"
+
+      echo -e "" >&2
+      echo -e $msg >&2
+
+      sleep 1
+      exec $executable "$@"
+}
+
+# === falha de segmentação =====================================================
+seg_fault(){ # seg fault no ls (10 % de chance de aparecer)
+  data=$(date "+%a  %d %I:%M:%S")
+  msg="${data}  kernel: Segmentation fault"
+
+  echo -e "" >&2
+  echo -e $msg >&2
+}
+
+# Insanidade é continuar fazendo sempre a mesma coisa e esperar resultados diferentes
+roleta=$(( ( RANDOM % 10 )  + 1 ))
+case "${roleta}" in
+  1)  io_error
+      ;;
+  2)  io_error
+      ;;
+  3)  seg_fault
+      ;;
+  *) exec $executable "$@"
+     ;; # Executa o comando normalmente
+esac
