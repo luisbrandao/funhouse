@@ -48,6 +48,11 @@ esac
 
 oldir=${PWD}
 cd ~/.local
-wget ${imagem}
+# Checa se a imagem já existe.
+if [[ ! -f ${imagem}  ]] ; then
+  wget ${imagem}
+fi
+# Muda o wallpaper
 gsettings set org.gnome.desktop.background picture-uri "${PWD}/$(basename ${imagem})"
+
 cd ${oldir}
