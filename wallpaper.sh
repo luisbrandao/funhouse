@@ -24,7 +24,7 @@ if [[ ${EUID} == 0 ]] ; then
   exec $executable "$@"
 fi
 
-roleta=$(( ( RANDOM % 3 )  + 1 ))
+roleta=$(( ( RANDOM % 9 )  + 1 ))
 case "${roleta}" in
   1)  imagem='https://raw.githubusercontent.com/luisbrandao/funhouse/master/Images/terry01.jpg'
       ;;
