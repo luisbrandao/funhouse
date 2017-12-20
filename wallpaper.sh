@@ -50,10 +50,13 @@ oldir=${PWD}
 raw=$(basename ${imagem})
 cd ~/.local
 # Checa se a imagem já existe.
-if [[ ! -f ${raw}  ]] ; then
+if [[ ! -f ${raw} ]] ; then
+  echo  "${raw} Não existe"
   wget ${imagem}
+else
+  echo  "${raw} já existe"
 fi
+
 # Muda o wallpaper
 gsettings set org.gnome.desktop.background picture-uri "${PWD}/${raw}"
-
 cd ${oldir}
