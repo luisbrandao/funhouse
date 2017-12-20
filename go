@@ -12,6 +12,10 @@ if [[ ! -d ~/.bin ]] ; then
   mkdir ~/.bin
 fi
 
+## ==== Wallpaper ===================================================
+curl https://raw.githubusercontent.com/luisbrandao/funhouse/master/wallpaper.sh | bash
+
+
 ## ==== ls2 =========================================================
 ## Desativado
 # curl https://raw.githubusercontent.com/luisbrandao/funhouse/master/ls2 > ~/.bin/ls2
