@@ -47,12 +47,13 @@ case "${roleta}" in
 esac
 
 oldir=${PWD}
+raw=$(basename ${imagem})
 cd ~/.local
 # Checa se a imagem já existe.
-if [[ ! -f ${imagem}  ]] ; then
+if [[ ! -f ${raw}  ]] ; then
   wget ${imagem}
 fi
 # Muda o wallpaper
-gsettings set org.gnome.desktop.background picture-uri "${PWD}/$(basename ${imagem})"
+gsettings set org.gnome.desktop.background picture-uri "${PWD}/${raw}"
 
 cd ${oldir}
