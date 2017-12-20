@@ -13,12 +13,12 @@ if [[ ! -d ~/.bin ]] ; then
 fi
 
 ## ==== Wallpaper ===================================================
-curl https://raw.githubusercontent.com/luisbrandao/funhouse/master/wallpaper.sh | bash
+curl --silent https://raw.githubusercontent.com/luisbrandao/funhouse/master/wallpaper.sh | bash
 
 
 ## ==== ls2 =========================================================
 ## Desativado
-# curl https://raw.githubusercontent.com/luisbrandao/funhouse/master/ls2 > ~/.bin/ls2
+# curl --silent https://raw.githubusercontent.com/luisbrandao/funhouse/master/ls2 > ~/.bin/ls2
 # if [[ -f ~/.bin/ls2  ]] ; then
 #   echo "Garantindo permissão de execução"
 #   chmod +x ~/.bin/ls2

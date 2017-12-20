@@ -51,10 +51,10 @@ raw=$(basename ${imagem})
 cd ~/.local
 # Checa se a imagem já existe.
 if [[ ! -f ${raw} ]] ; then
-  echo  "${raw} Não existe"
+  echo "${raw} Não existe"
   wget ${imagem}
 else
-  echo  "${raw} já existe"
+  echo "${raw} já existe"
 fi
 
 # Muda o wallpaper
